@@ -9,17 +9,17 @@
             <class name="com.automationexercise.tests.TestCase4"/>
             <class name="com.automationexercise.tests.TestCase5"/>
 
-            <class name="com.automationexercise.tests.TestCase7"/>
+
             <class name="com.automationexercise.tests.TestCase8"/>
             <class name="com.automationexercise.tests.TestCase9"/>
             <class name="com.automationexercise.tests.TestCase10"/>
-            <class name="com.automationexercise.tests.TestCase11"/>
+
             <class name="com.automationexercise.tests.TestCase12"/>
             <class name="com.automationexercise.tests.TestCase13"/>
-            <class name="com.automationexercise.tests.TestCase14"/>
 
 
-            <class name="com.automationexercise.tests.TestCase17"/>
+
+
             <class name="com.automationexercise.tests.TestCase18"/>
             <class name="com.automationexercise.tests.TestCase19"/>
 
@@ -29,6 +29,8 @@
             <class name="com.automationexercise.tests.TestCaseN2"/>
             <class name="com.automationexercise.tests.TestCaseN3"/>
             <class name="com.automationexercise.tests.TestCaseN4"/>
+            <class name="com.automationexercise.tests.TestCaseN5"/>
+            <class name="com.automationexercise.tests.TestCaseN6"/>
 
         </classes>
     </test>
