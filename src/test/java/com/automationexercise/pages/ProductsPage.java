@@ -54,8 +54,6 @@ public class ProductsPage {
     @FindBy(css = "a[href='/brand_products/Madame']")
     private WebElement madameBrand;
 
-    @FindBy(css = "a[class='btn btn-default add-to-cart']")
-    List<WebElement> addButtons;
 
     private WebDriver driver;
     private JavascriptExecutor js;
@@ -130,13 +128,5 @@ public class ProductsPage {
         return this;
     }
 
-    public ProductsPage addAllProducts() {
-        for (int i = 0; i < addButtons.size(); i = i + 2) {
-            // ✅ JS click — bypasses ads for all products
-            jsClick(addButtons.get(i));
-            SeleniumHelper.waitForElementToBeClickable(driver, continueShoppingButton);
-            continueShoppingButton.click();
-        }
-        return this;
-    }
+
 }

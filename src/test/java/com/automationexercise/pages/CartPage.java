@@ -29,8 +29,7 @@ public class CartPage {
     @FindBy(css = "a[class='btn btn-default check_out']")
     private WebElement proceedToCheckoutButton;
 
-    @FindBy(css = "a[href='/login'] u")
-    private WebElement registerLoginButton;
+
 
     @FindBy(css = "a[data-product-id='1']")
     private WebElement xButton1;
@@ -41,8 +40,7 @@ public class CartPage {
     @FindBy(id = "empty_cart")
     private WebElement emptyCartSpan;
 
-    @FindBy(css = "a[class='cart_quantity_delete']")
-    private List<WebElement> xButtons;
+
 
     private WebDriver driver;
 
@@ -83,20 +81,14 @@ public class CartPage {
         return shoppingCart;
     }
 
-    public CartPage proceedToCheckoutButtonClick() {
-        proceedToCheckoutButton.click();
-        return this;
-    }
+
 
     public CheckoutPage proceedToCheckoutLoggedButtonClick() {
         proceedToCheckoutButton.click();
         return new CheckoutPage(driver);
     }
 
-    public LoginSignupPage registerLoginButtonClick() {
-        registerLoginButton.click();
-        return new LoginSignupPage(driver);
-    }
+
 
     public CartPage xButtonClick() {
         xButton1.click();
@@ -109,12 +101,5 @@ public class CartPage {
         return emptyCartSpan;
     }
 
-    public CartPage deleteAllAddedProducts() throws InterruptedException {
-        int xButtonsSize = xButtons.size();
-        for (int i = 0; i < xButtonsSize; i++) {
-            xButtons.get(0).click();
-            Thread.sleep(500);
-        }
-            return this;
-    }
+
 }

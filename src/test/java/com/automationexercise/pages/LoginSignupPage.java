@@ -1,17 +1,15 @@
 package com.automationexercise.pages;
 
-import com.automationexercise.tests.TestBasic;
 import com.automationexercise.utils.JSONReader;
 import com.automationexercise.utils.SeleniumHelper;
 import org.json.simple.parser.ParseException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import java.io.IOException;
 
-public class LoginSignupPage extends TestBasic {
+public class LoginSignupPage extends BasePage {
 
     @FindBy(css = "div[class='login-form'] h2")
     private WebElement loginToYourAccount;
@@ -46,11 +44,8 @@ public class LoginSignupPage extends TestBasic {
     @FindBy(xpath = "//a[contains(.,'Logged in as')]/b")
     private WebElement loggedInConfirmation;
 
-    private WebDriver driver;
-
     public LoginSignupPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
+        super(driver);
     }
 
     public WebElement getNewUserSignup() {
@@ -63,13 +58,11 @@ public class LoginSignupPage extends TestBasic {
         signupButton.click();
     }
 
-    // ✅ Used by TC1, TC5, TC14 — navigates to EnterAccountInformationPage
     public EnterAccountInformationPage fillCorrectSignup(String name, String email) {
         fillSignup(name, email);
         return new EnterAccountInformationPage(driver);
     }
 
-    // ✅ Used by N4 — stays on same page when input is invalid
     public LoginSignupPage fillSignupAndStay(String name, String email) {
         signupNameInput.sendKeys(name);
         signupEmailInput.sendKeys(email);

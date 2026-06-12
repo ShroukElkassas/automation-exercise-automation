@@ -1,18 +1,16 @@
 package com.automationexercise.pages;
 
-import com.automationexercise.tests.TestBasic;
 import com.automationexercise.utils.JSONReader;
 import com.automationexercise.utils.Util;
 import org.json.simple.parser.ParseException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
 import java.io.IOException;
 
-public class EnterAccountInformationPage extends TestBasic {
+public class EnterAccountInformationPage extends BasePage {
 
     @FindBy(xpath = "//b[contains(.,'Enter Account Information')]")
     private WebElement enterAccountInformation;
@@ -71,11 +69,8 @@ public class EnterAccountInformationPage extends TestBasic {
     @FindBy(css = "button[data-qa='create-account']")
     private WebElement createAccountButton;
 
-    private WebDriver driver;
-
     public EnterAccountInformationPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
+        super(driver);
     }
 
     public WebElement getEnterAccountInformation() {
