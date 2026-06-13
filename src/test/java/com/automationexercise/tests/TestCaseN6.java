@@ -24,8 +24,16 @@ public class TestCaseN6 extends TestBasic {
             7. Verify that success subscription message is NOT displayed""")
     public void subscribeWithInvalidEmailFormat() {
         TestCase1.verifyThatHomePageIsVisibleSuccessfully();
-        TestCase10.verifyTextSubscription();
+        verifyTextSubscription();
         verifyThatInvalidEmailSubscriptionIsRejected();
+    }
+
+    @Step("Verify text 'SUBSCRIPTION'")
+    private void verifyTextSubscription() {
+        String subscriptionText = new HomePage(getDriver())
+                .getSubscription()
+                .getText();
+        Assert.assertEquals(subscriptionText, "SUBSCRIPTION", "Verify text 'SUBSCRIPTION'");
     }
 
     @Step("Verify that subscription with invalid email format is rejected")

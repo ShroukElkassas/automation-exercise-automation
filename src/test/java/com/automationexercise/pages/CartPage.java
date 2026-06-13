@@ -40,6 +40,9 @@ public class CartPage {
     @FindBy(id = "empty_cart")
     private WebElement emptyCartSpan;
 
+    @FindBy(css = "a[href='/login'] u")
+    private WebElement registerLoginButton;
+
 
 
     private WebDriver driver;
@@ -99,6 +102,15 @@ public class CartPage {
     public WebElement getEmptyCartSpan() {
         SeleniumHelper.waitForElementToBeVisible(driver, emptyCartSpan);
         return emptyCartSpan;
+    }
+
+    public CartPage proceedToCheckoutButtonClick() {
+        proceedToCheckoutButton.click();
+        return this;
+    }
+    public LoginSignupPage registerLoginButtonClick() {
+        registerLoginButton.click();
+        return new LoginSignupPage(driver);
     }
 
 

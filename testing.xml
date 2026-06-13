@@ -12,7 +12,7 @@
 
             <class name="com.automationexercise.tests.TestCase8"/>
             <class name="com.automationexercise.tests.TestCase9"/>
-            <class name="com.automationexercise.tests.TestCase10"/>
+
 
             <class name="com.automationexercise.tests.TestCase12"/>
             <class name="com.automationexercise.tests.TestCase13"/>
@@ -31,6 +31,9 @@
             <class name="com.automationexercise.tests.TestCaseN4"/>
             <class name="com.automationexercise.tests.TestCaseN5"/>
             <class name="com.automationexercise.tests.TestCaseN6"/>
+            <class name="com.automationexercise.tests.TestCaseE1"/>
+            <class name="com.automationexercise.tests.TestCaseE2"/>
+            <class name="com.automationexercise.tests.TestCaseE4"/>
 
         </classes>
     </test>
