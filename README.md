@@ -121,7 +121,6 @@ All test data lives in `src/test/resources/testData/*.json` and is loaded via `J
 
 This project is a work in progress and these limitations are tracked deliberately rather than hidden:
 
-- **Cross-test-class dependencies**: some tests call shared verification steps defined inside other test classes (e.g. `TestCase1.verifyThatHomePageIsVisibleSuccessfully()`). **Next step**: extract these into a shared `CommonSteps` class so test classes don't depend on each other.
 - **`config.properties`** still contains a couple of leftover hardcoded local paths from earlier development that aren't referenced by any test — to be removed.
 - **No retry-on-failure listener** or automatic failure screenshots yet — both are natural next additions for handling UI flakiness.
 - **No `@DataProvider` usage yet** — test data is read via `JSONReader` static calls (a manual data-driven approach), but no test uses TestNG's native `@DataProvider` to run one method against multiple data sets. `TestCase19` (brand products: Polo, Madame) is a good candidate — it currently checks both brands sequentially inside one test method and could be split into two data-driven executions instead.
