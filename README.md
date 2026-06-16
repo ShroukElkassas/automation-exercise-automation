@@ -13,7 +13,7 @@ dead-code cleanup, CI/CD integration, and applying QA best practices.
 
 🎬 Demo
 
-▶️ Watch the project demo on Google Drive
+▶️ [Watch the project demo on Google Drive](https://drive.google.com/file/d/1u4ewqdTiCPgcxFfQ4g8vGhJEJDi2E4Qb/view?usp=sharing)
 
 
 📊 Test Cases & Bug Report
@@ -21,7 +21,7 @@ dead-code cleanup, CI/CD integration, and applying QA best practices.
 The full test case sheet (positive, negative, edge cases, and bug report) is
 available here:
 
-📋 Test Cases & Bug Report – Google Sheets
+📋 Test Cases & Bug Report – [Google Sheets](https://docs.google.com/spreadsheets/d/1MVj3FSOVC2Qc64TWUHI3gRkkJ1GSqlIS2ee_m8LsalI/edit?gid=0#gid=0)
 
 The sheet covers:
 
