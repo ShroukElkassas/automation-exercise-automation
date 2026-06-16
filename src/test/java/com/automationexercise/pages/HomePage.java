@@ -12,9 +12,7 @@ import java.io.IOException;
 
 public class HomePage extends BasePage {
 
-    // ✅ Fixed: carousel image fails on CI with EAGER page load strategy
-    // — replaced with a stable DOM element present immediately on page load
-    @FindBy(css = "a[href='/login']")
+    @FindBy(css = "div[class='item active'] img[alt='demo website for practice']")
     private WebElement girlImgResponsive;
 
     @FindBy(css = "a[href='/login']")
