@@ -5,12 +5,11 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ProductsPage {
+public class ProductsPage extends BasePage {
 
     @FindBy(css = ".title.text-center")
     private WebElement titleTextCenter;
@@ -54,17 +53,14 @@ public class ProductsPage {
     @FindBy(css = "a[href='/brand_products/Madame']")
     private WebElement madameBrand;
 
-
-    private WebDriver driver;
-    private JavascriptExecutor js;
+    private final JavascriptExecutor js;
 
     public ProductsPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
+        super(driver);
         this.js = (JavascriptExecutor) driver;
     }
 
-    // ✅ Helper: JS click bypasses ads/overlays blocking normal clicks
+
     private void jsClick(WebElement element) {
         SeleniumHelper.waitForElementToBeClickable(driver, element);
         js.executeScript("arguments[0].scrollIntoView({block: 'center'});", element);
@@ -94,7 +90,7 @@ public class ProductsPage {
     }
 
     public CartPage addProductsToCart() {
-        // ✅ JS click — bypasses Google Ads iframe blocking the buttons
+
         jsClick(addToCartButton1);
         SeleniumHelper.waitForElementToBeClickable(driver, continueShoppingButton);
         continueShoppingButton.click();
@@ -127,6 +123,4 @@ public class ProductsPage {
         madameBrand.click();
         return this;
     }
-
-
 }

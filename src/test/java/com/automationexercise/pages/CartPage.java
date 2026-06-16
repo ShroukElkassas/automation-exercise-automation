@@ -4,12 +4,11 @@ import com.automationexercise.utils.SeleniumHelper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CartPage {
+public class CartPage extends BasePage {
 
     @FindBy(xpath = "//td[contains(@class, 'cart_description')]//a")
     private List<WebElement> productName;
@@ -29,8 +28,6 @@ public class CartPage {
     @FindBy(css = "a[class='btn btn-default check_out']")
     private WebElement proceedToCheckoutButton;
 
-
-
     @FindBy(css = "a[data-product-id='1']")
     private WebElement xButton1;
 
@@ -43,13 +40,8 @@ public class CartPage {
     @FindBy(css = "a[href='/login'] u")
     private WebElement registerLoginButton;
 
-
-
-    private WebDriver driver;
-
     public CartPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
+        super(driver);
     }
 
     public List<String> getProductsNames() {
@@ -84,14 +76,10 @@ public class CartPage {
         return shoppingCart;
     }
 
-
-
     public CheckoutPage proceedToCheckoutLoggedButtonClick() {
         proceedToCheckoutButton.click();
         return new CheckoutPage(driver);
     }
-
-
 
     public CartPage xButtonClick() {
         xButton1.click();
@@ -108,10 +96,9 @@ public class CartPage {
         proceedToCheckoutButton.click();
         return this;
     }
+
     public LoginSignupPage registerLoginButtonClick() {
         registerLoginButton.click();
         return new LoginSignupPage(driver);
     }
-
-
 }

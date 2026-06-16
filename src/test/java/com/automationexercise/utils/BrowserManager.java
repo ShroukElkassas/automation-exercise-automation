@@ -37,7 +37,7 @@ public class BrowserManager {
     private static ChromeOptions buildChromeOptions() {
         ChromeOptions options = new ChromeOptions();
 
-        // ✅ Headless mode for CI (GitHub Actions runs on Linux with no display)
+
         if (Boolean.parseBoolean(System.getenv("CI"))) {
             options.addArguments("--headless=new");
             options.addArguments("--window-size=1920,1080");

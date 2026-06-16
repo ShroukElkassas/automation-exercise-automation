@@ -4,12 +4,11 @@ import com.automationexercise.utils.SeleniumHelper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CheckoutPage {
+public class CheckoutPage extends BasePage {
 
     @FindBy(xpath = "//ul[contains(@id, 'address_delivery')]//li")
     private List<WebElement> addressDelivery;
@@ -17,7 +16,7 @@ public class CheckoutPage {
     @FindBy(xpath = "//ul[contains(@id, 'address_invoice')]//li")
     private List<WebElement> addressInvoice;
 
-    // ✅ Fixed: was fragile tr[3]/td[4] index
+
     @FindBy(xpath = "//tr[contains(.,'Total')]/td[last()]/p")
     private WebElement totalAmount;
 
@@ -27,11 +26,8 @@ public class CheckoutPage {
     @FindBy(css = "a[href='/payment']")
     private WebElement placeOrderButton;
 
-    private WebDriver driver;
-
     public CheckoutPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
+        super(driver);
     }
 
     public List<String> getAddressDelivery() {

@@ -6,31 +6,30 @@ import org.json.simple.parser.ParseException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import java.io.IOException;
 
-public class ProductDetailPage {
+public class ProductDetailPage extends BasePage {
 
     @FindBy(css = "div[class='product-information'] h2")
     private WebElement productName;
 
-    // ✅ Fixed: text-based instead of fragile index XPath
+
     @FindBy(xpath = "//div[@class='product-information']//p[contains(.,'Category')]")
     private WebElement productCategory;
 
     @FindBy(css = "div[class='product-information'] span span")
     private WebElement productPrice;
 
-    // ✅ Fixed: text-based instead of fragile index XPath
+
     @FindBy(xpath = "//div[@class='product-information']//p[contains(.,'Availability')]")
     private WebElement productAvailability;
 
-    // ✅ Fixed: text-based instead of fragile index XPath
+
     @FindBy(xpath = "//div[@class='product-information']//p[contains(.,'Condition')]")
     private WebElement productCondition;
 
-    // ✅ Fixed: text-based instead of fragile index XPath
+
     @FindBy(xpath = "//div[@class='product-information']//p[contains(.,'Brand')]")
     private WebElement productBrand;
 
@@ -61,11 +60,8 @@ public class ProductDetailPage {
     @FindBy(css = "div[class='alert-success alert'] span")
     private WebElement successMessage;
 
-    private WebDriver driver;
-
     public ProductDetailPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
+        super(driver);
     }
 
     public WebElement getProductName() {

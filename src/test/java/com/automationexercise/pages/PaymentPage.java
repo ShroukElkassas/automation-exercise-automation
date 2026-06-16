@@ -6,11 +6,10 @@ import org.json.simple.parser.ParseException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import java.io.IOException;
 
-public class PaymentPage {
+public class PaymentPage extends BasePage {
 
     @FindBy(css = "input[data-qa='name-on-card']")
     private WebElement nameOnCardInput;
@@ -30,19 +29,12 @@ public class PaymentPage {
     @FindBy(css = "button[data-qa='pay-button']")
     private WebElement payAndConfirmOrderButton;
 
-    // ✅ Fixed: added wait for success message
+
     @FindBy(css = "div[class='col-sm-9 col-sm-offset-1'] p")
     private WebElement successMessage;
 
-
-
-
-
-    private WebDriver driver;
-
     public PaymentPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
+        super(driver);
     }
 
     public PaymentPage fillPaymentDetails() throws IOException, ParseException {
@@ -60,8 +52,4 @@ public class PaymentPage {
         SeleniumHelper.waitForElementToBeVisible(driver, successMessage);
         return successMessage;
     }
-
-
-
-
 }

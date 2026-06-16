@@ -3,9 +3,8 @@ package com.automationexercise.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-public class AccountCreatedPage {
+public class AccountCreatedPage extends BasePage {
 
     @FindBy(css = "h2[data-qa='account-created']")
     private WebElement accountCreated;
@@ -13,11 +12,8 @@ public class AccountCreatedPage {
     @FindBy(css = "a[data-qa='continue-button']")
     private WebElement continueButton;
 
-    private WebDriver driver;
-
     public AccountCreatedPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
+        super(driver);
     }
 
     public WebElement getAccountCreated() {

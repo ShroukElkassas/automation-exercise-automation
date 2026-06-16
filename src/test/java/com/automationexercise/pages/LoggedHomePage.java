@@ -4,27 +4,23 @@ import com.automationexercise.utils.SeleniumHelper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-public class LoggedHomePage {
+public class LoggedHomePage extends BasePage {
 
-    // ✅ Fixed: uses text-based XPath instead of fragile li[10] index
+
     @FindBy(xpath = "//a[contains(.,'Logged in as')]/b")
     private WebElement username;
 
-    // ✅ Fixed: uses href instead of fragile li[5] index
+
     @FindBy(css = "a[href='/delete_account']")
     private WebElement deleteAccountButton;
 
-    // ✅ Fixed: uses href instead of fragile li[4] index
+
     @FindBy(css = "a[href='/logout']")
     private WebElement logoutButton;
 
-    private WebDriver driver;
-
     public LoggedHomePage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
+        super(driver);
     }
 
     public WebElement getUsername() {
