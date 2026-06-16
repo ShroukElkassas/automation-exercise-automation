@@ -184,28 +184,7 @@ via `JSONReader`, keeping data completely separate from test logic:
 
 ---
 
-## 🔧 Framework Enhancements Applied
 
-This project went through a deliberate refactoring pass to apply best
-practices:
-
-- **All 13 Page Object classes now extend `BasePage`** — eliminated 9×
-  duplicated `PageFactory.initElements()` constructor boilerplate.
-- **`JSONReader` refactored** — one generic `readJsonValue(fileName, key)`
-  method replaces 5 near-identical methods; files loaded via classpath
-  (`getResourceAsStream`) instead of hard-coded Windows paths; results cached
-  per file.
-- **Dead dependencies removed from `pom.xml`** — Lombok, ExtentReports,
-  Apache POI, commons-io, Log4j, SLF4J, and JetBrains annotations were
-  declared but never imported anywhere; all removed.
-- **Stable locators applied** — fragile index-based XPaths (`li[10]`,
-  `li[5]`, `tr[3]/td[4]`) replaced with text-based and href-based locators
-  throughout `LoggedHomePage`, `ProductDetailPage`, and `CheckoutPage`.
-- **`BrowserManager` wired correctly** — `-Dbrowser.name` system property
-  is now actually read (previously only `config.properties` was consulted,
-  making the CI flag dead config).
-
----
 
 ## ⚙️ CI/CD
 
