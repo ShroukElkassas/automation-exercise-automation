@@ -76,8 +76,12 @@ TestBasic (TestNG @BeforeMethod/@AfterMethod, ThreadLocal<WebDriver>)
   `@BeforeMethod`/`@AfterMethod` with a `ThreadLocal<WebDriver>` for
   thread-safe parallel execution.
 - **`BasePage`** is the shared parent for all 13 Page Objects — holds the
-  `WebDriver` reference and runs `PageFactory.initElements()` once, eliminating
-  duplicated constructor boilerplate.
+  `WebDriver` reference and exposes clean helper methods (`find`, `click`,
+  `type`, `getText`, `isDisplayed`) so every Page Object uses consistent,
+  readable element interactions without repeating `driver.findElement()` calls.
+- **Locators** are declared as `private By` fields inside each Page Object
+  class — no `@FindBy` annotations or `PageFactory`, keeping locator
+  management explicit and straightforward.
 - **`JSONReader`** loads test data from classpath JSON files with per-file
   caching — each file is parsed once and reused, not re-read on every call.
 - Page Object methods return the next page object (or `this`), enabling
@@ -91,6 +95,67 @@ TestBasic (TestNG @BeforeMethod/@AfterMethod, ThreadLocal<WebDriver>)
       .getText();
   ```
 
+---
+
+## 🏗️ BasePage Design
+
+`BasePage` is an abstract class that all 13 Page Objects extend.locators are declared as `private By`
+fields and element interactions go through `BasePage` helper methods:
+
+```java
+public abstract class BasePage {
+
+    protected WebDriver driver;
+
+    public BasePage(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    protected WebElement find(By locator) {
+        return driver.findElement(locator);
+    }
+
+    protected void click(By locator) {
+        driver.findElement(locator).click();
+    }
+
+    protected void type(By locator, String text) {
+        driver.findElement(locator).clear();
+        driver.findElement(locator).sendKeys(text);
+    }
+
+    protected String getText(By locator) {
+        return driver.findElement(locator).getText();
+    }
+
+    protected boolean isDisplayed(By locator) {
+        return driver.findElement(locator).isDisplayed();
+    }
+}
+```
+
+Each Page Object declares its own locators and uses these methods:
+
+```java
+public class AccountCreatedPage extends BasePage {
+
+    private By accountCreated = By.cssSelector("h2[data-qa='account-created']");
+    private By continueButton = By.cssSelector("a[data-qa='continue-button']");
+
+    public AccountCreatedPage(WebDriver driver) {
+        super(driver);
+    }
+
+    public WebElement getAccountCreated() {
+        return find(accountCreated);
+    }
+
+    public LoggedHomePage continueButtonClick() {
+        click(continueButton);
+        return new LoggedHomePage(driver);
+    }
+}
+```
 ---
 
 ## ▶️ How to Run
@@ -138,7 +203,7 @@ categories:
 | TC13 | Verify product quantity in cart |
 | TC18 | View category products |
 | TC19 | View brand products (Polo & Madame) |
-| TC21 | Add review on product |
+| TC21 | Add product review |
 
 ### Negative Test Cases
 
@@ -183,7 +248,6 @@ via `JSONReader`, keeping data completely separate from test logic:
 | `MadameBrandProducts.json` | Expected product list for Madame brand |
 
 ---
-
 
 
 ## ⚙️ CI/CD
