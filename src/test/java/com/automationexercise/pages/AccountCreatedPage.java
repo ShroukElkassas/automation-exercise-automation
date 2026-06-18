@@ -1,27 +1,27 @@
 package com.automationexercise.pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 public class AccountCreatedPage extends BasePage {
 
-    @FindBy(css = "h2[data-qa='account-created']")
-    private WebElement accountCreated;
 
-    @FindBy(css = "a[data-qa='continue-button']")
-    private WebElement continueButton;
+
+    private By accountCreated = By.cssSelector("h2[data-qa='account-created']");
+
+    private By continueButton = By.cssSelector("a[data-qa='continue-button']");
 
     public AccountCreatedPage(WebDriver driver) {
         super(driver);
     }
 
     public WebElement getAccountCreated() {
-        return accountCreated;
+        return driver.findElement(accountCreated);
     }
 
     public LoggedHomePage continueButtonClick() {
-        continueButton.click();
+        driver.findElement(continueButton).click();
         return new LoggedHomePage(driver);
     }
 }

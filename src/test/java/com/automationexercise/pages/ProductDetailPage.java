@@ -3,123 +3,139 @@ package com.automationexercise.pages;
 import com.automationexercise.utils.JSONReader;
 import com.automationexercise.utils.SeleniumHelper;
 import org.json.simple.parser.ParseException;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 import java.io.IOException;
 
 public class ProductDetailPage extends BasePage {
 
-    @FindBy(css = "div[class='product-information'] h2")
-    private WebElement productName;
 
 
-    @FindBy(xpath = "//div[@class='product-information']//p[contains(.,'Category')]")
-    private WebElement productCategory;
+    private By productName =
+            By.cssSelector("div[class='product-information'] h2");
 
-    @FindBy(css = "div[class='product-information'] span span")
-    private WebElement productPrice;
+    private By productCategory =
+            By.xpath("//div[@class='product-information']//p[contains(.,'Category')]");
 
+    private By productPrice =
+            By.cssSelector("div[class='product-information'] span span");
 
-    @FindBy(xpath = "//div[@class='product-information']//p[contains(.,'Availability')]")
-    private WebElement productAvailability;
+    private By productAvailability =
+            By.xpath("//div[@class='product-information']//p[contains(.,'Availability')]");
 
+    private By productCondition =
+            By.xpath("//div[@class='product-information']//p[contains(.,'Condition')]");
 
-    @FindBy(xpath = "//div[@class='product-information']//p[contains(.,'Condition')]")
-    private WebElement productCondition;
+    private By productBrand =
+            By.xpath("//div[@class='product-information']//p[contains(.,'Brand')]");
 
+    private By quantityInput =
+            By.id("quantity");
 
-    @FindBy(xpath = "//div[@class='product-information']//p[contains(.,'Brand')]")
-    private WebElement productBrand;
+    private By addToCartButton =
+            By.cssSelector("button[class='btn btn-default cart']");
 
-    @FindBy(id = "quantity")
-    private WebElement quantityInput;
+    private By viewCartButton =
+            By.cssSelector("a[href='/view_cart'] u");
 
-    @FindBy(css = "button[class='btn btn-default cart']")
-    private WebElement addToCartButton;
+    private By writeYourReview =
+            By.cssSelector("a[href='#reviews']");
 
-    @FindBy(css = "a[href='/view_cart'] u")
-    private WebElement viewCartButton;
+    private By yourNameInput =
+            By.id("name");
 
-    @FindBy(css = "a[href='#reviews']")
-    private WebElement writeYourReview;
+    private By emailAddress =
+            By.id("email");
 
-    @FindBy(id = "name")
-    private WebElement yourNameInput;
+    private By addReviewHere =
+            By.id("review");
 
-    @FindBy(id = "email")
-    private WebElement emailAddress;
+    private By submitButton =
+            By.id("button-review");
 
-    @FindBy(id = "review")
-    private WebElement addReviewHere;
-
-    @FindBy(id = "button-review")
-    private WebElement submitButton;
-
-    @FindBy(css = "div[class='alert-success alert'] span")
-    private WebElement successMessage;
+    private By successMessage =
+            By.cssSelector("div[class='alert-success alert'] span");
 
     public ProductDetailPage(WebDriver driver) {
         super(driver);
     }
 
+
+
     public WebElement getProductName() {
-        return productName;
+        return driver.findElement(productName);
     }
 
     public WebElement getProductCategory() {
-        return productCategory;
+        return driver.findElement(productCategory);
     }
 
     public WebElement getProductPrice() {
-        return productPrice;
+        return driver.findElement(productPrice);
     }
 
     public WebElement getProductAvailability() {
-        return productAvailability;
+        return driver.findElement(productAvailability);
     }
 
     public WebElement getProductCondition() {
-        return productCondition;
+        return driver.findElement(productCondition);
     }
 
     public WebElement getProductBrand() {
-        return productBrand;
+        return driver.findElement(productBrand);
     }
 
+
+
     public ProductDetailPage increaseQuantity(String value) {
-        quantityInput.clear();
-        quantityInput.sendKeys(value);
+        driver.findElement(quantityInput).clear();
+        driver.findElement(quantityInput).sendKeys(value);
         return this;
     }
 
     public ProductDetailPage addToCartButtonClick() {
-        SeleniumHelper.waitForElementToBeClickable(driver, addToCartButton);
-        addToCartButton.click();
+        SeleniumHelper.waitForElementToBeClickable(driver,
+                driver.findElement(addToCartButton));
+
+        driver.findElement(addToCartButton).click();
         return this;
     }
 
     public CartPage viewCartButtonClick() {
-        SeleniumHelper.waitForElementToBeClickable(driver, viewCartButton);
-        viewCartButton.click();
+        SeleniumHelper.waitForElementToBeClickable(driver,
+                driver.findElement(viewCartButton));
+
+        driver.findElement(viewCartButton).click();
         return new CartPage(driver);
     }
 
     public WebElement getWriteYourReview() {
-        return writeYourReview;
+        return driver.findElement(writeYourReview);
     }
 
     public ProductDetailPage fillReview() throws IOException, ParseException {
-        yourNameInput.sendKeys(JSONReader.existingUser("name"));
-        emailAddress.sendKeys(JSONReader.existingUser("email"));
-        addReviewHere.sendKeys("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
-        submitButton.click();
+
+        driver.findElement(yourNameInput)
+                .sendKeys(JSONReader.existingUser("name"));
+
+        driver.findElement(emailAddress)
+                .sendKeys(JSONReader.existingUser("email"));
+
+        driver.findElement(addReviewHere)
+                .sendKeys("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
+
+        driver.findElement(submitButton).click();
+
         return this;
     }
 
     public WebElement getSuccessMessage() {
-        SeleniumHelper.waitForElementToBeVisible(driver, successMessage);
-        return successMessage;
+        SeleniumHelper.waitForElementToBeVisible(driver,
+                driver.findElement(successMessage));
+
+        return driver.findElement(successMessage);
     }
 }

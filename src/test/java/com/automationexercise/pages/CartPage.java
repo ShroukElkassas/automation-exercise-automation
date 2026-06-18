@@ -1,104 +1,108 @@
 package com.automationexercise.pages;
 
 import com.automationexercise.utils.SeleniumHelper;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class CartPage extends BasePage {
 
-    @FindBy(xpath = "//td[contains(@class, 'cart_description')]//a")
-    private List<WebElement> productName;
 
-    @FindBy(xpath = "//td[contains(@class, 'cart_price')]/p")
-    private List<WebElement> price;
 
-    @FindBy(xpath = "//td[contains(@class, 'cart_quantity')]/button")
-    private List<WebElement> quantity;
+    private By productName =
+            By.xpath("//td[contains(@class, 'cart_description')]//a");
 
-    @FindBy(xpath = "//p[contains(@class, 'cart_total_price')]")
-    private List<WebElement> totalPrice;
+    private By price =
+            By.xpath("//td[contains(@class, 'cart_price')]/p");
 
-    @FindBy(css = "li[class='active']")
-    private WebElement shoppingCart;
+    private By quantity =
+            By.xpath("//td[contains(@class, 'cart_quantity')]/button");
 
-    @FindBy(css = "a[class='btn btn-default check_out']")
-    private WebElement proceedToCheckoutButton;
+    private By totalPrice =
+            By.xpath("//p[contains(@class, 'cart_total_price')]");
 
-    @FindBy(css = "a[data-product-id='1']")
-    private WebElement xButton1;
+    private By shoppingCart =
+            By.cssSelector("li[class='active']");
 
-    @FindBy(css = "a[data-product-id='2']")
-    private WebElement xButton2;
+    private By proceedToCheckoutButton =
+            By.cssSelector("a[class='btn btn-default check_out']");
 
-    @FindBy(id = "empty_cart")
-    private WebElement emptyCartSpan;
+    private By xButton1 =
+            By.cssSelector("a[data-product-id='1']");
 
-    @FindBy(css = "a[href='/login'] u")
-    private WebElement registerLoginButton;
+    private By xButton2 =
+            By.cssSelector("a[data-product-id='2']");
+
+    private By emptyCartSpan =
+            By.id("empty_cart");
+
+    private By registerLoginButton =
+            By.cssSelector("a[href='/login'] u");
 
     public CartPage(WebDriver driver) {
         super(driver);
     }
 
+    // ===== Methods (UNCHANGED logic) =====
+
     public List<String> getProductsNames() {
-        return productName
+        return driver.findElements(productName)
                 .stream()
                 .map(WebElement::getText)
                 .collect(Collectors.toList());
     }
 
     public List<String> getPrices() {
-        return price
+        return driver.findElements(price)
                 .stream()
                 .map(WebElement::getText)
                 .collect(Collectors.toList());
     }
 
     public List<String> getQuantity() {
-        return quantity
+        return driver.findElements(quantity)
                 .stream()
                 .map(WebElement::getText)
                 .collect(Collectors.toList());
     }
 
     public List<String> getTotalPrices() {
-        return totalPrice
+        return driver.findElements(totalPrice)
                 .stream()
                 .map(WebElement::getText)
                 .collect(Collectors.toList());
     }
 
     public WebElement getShoppingCart() {
-        return shoppingCart;
+        return driver.findElement(shoppingCart);
     }
 
     public CheckoutPage proceedToCheckoutLoggedButtonClick() {
-        proceedToCheckoutButton.click();
+        driver.findElement(proceedToCheckoutButton).click();
         return new CheckoutPage(driver);
     }
 
     public CartPage xButtonClick() {
-        xButton1.click();
-        xButton2.click();
+        driver.findElement(xButton1).click();
+        driver.findElement(xButton2).click();
         return this;
     }
 
     public WebElement getEmptyCartSpan() {
-        SeleniumHelper.waitForElementToBeVisible(driver, emptyCartSpan);
-        return emptyCartSpan;
+        SeleniumHelper.waitForElementToBeVisible(driver, driver.findElement(emptyCartSpan));
+        return driver.findElement(emptyCartSpan);
     }
 
     public CartPage proceedToCheckoutButtonClick() {
-        proceedToCheckoutButton.click();
+        driver.findElement(proceedToCheckoutButton).click();
         return this;
     }
 
     public LoginSignupPage registerLoginButtonClick() {
-        registerLoginButton.click();
+        driver.findElement(registerLoginButton).click();
         return new LoginSignupPage(driver);
     }
 }

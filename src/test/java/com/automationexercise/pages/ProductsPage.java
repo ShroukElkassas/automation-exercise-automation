@@ -1,57 +1,59 @@
 package com.automationexercise.pages;
 
 import com.automationexercise.utils.SeleniumHelper;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ProductsPage extends BasePage {
 
-    @FindBy(css = ".title.text-center")
-    private WebElement titleTextCenter;
 
-    @FindBy(css = "a[href='/product_details/1']")
-    private WebElement viewProductOfFirstProductButton;
 
-    @FindBy(id = "search_product")
-    private WebElement searchProductInput;
+    private By titleTextCenter =
+            By.cssSelector(".title.text-center");
 
-    @FindBy(id = "submit_search")
-    private WebElement submitSearchInput;
+    private By viewProductOfFirstProductButton =
+            By.cssSelector("a[href='/product_details/1']");
 
-    @FindBy(xpath = "//div[contains(@class, 'productinfo text-center')]//p")
-    private List<WebElement> searchResultsNames;
+    private By searchProductInput =
+            By.id("search_product");
 
-    @FindBy(css = "a[data-product-id='1']")
-    private WebElement addToCartButton1;
+    private By submitSearchInput =
+            By.id("submit_search");
 
-    @FindBy(css = "a[data-product-id='2']")
-    private WebElement addToCartButton2;
+    private By searchResultsNames =
+            By.xpath("//div[contains(@class, 'productinfo text-center')]//p");
 
-    @FindBy(css = "button[data-dismiss='modal']")
-    private WebElement continueShoppingButton;
+    private By addToCartButton1 =
+            By.cssSelector("a[data-product-id='1']");
 
-    @FindBy(css = "a[href='/view_cart'] u")
-    private WebElement viewCartButton;
+    private By addToCartButton2 =
+            By.cssSelector("a[data-product-id='2']");
 
-    @FindBy(css = "a[href='#Men']")
-    private WebElement menCategory;
+    private By continueShoppingButton =
+            By.cssSelector("button[data-dismiss='modal']");
 
-    @FindBy(css = "a[href='/category_products/3']")
-    private WebElement tShirtsCategory;
+    private By viewCartButton =
+            By.cssSelector("a[href='/view_cart'] u");
 
-    @FindBy(css = "div[class='brands-name']")
-    private WebElement brands;
+    private By menCategory =
+            By.cssSelector("a[href='#Men']");
 
-    @FindBy(css = "a[href='/brand_products/Polo']")
-    private WebElement poloBrand;
+    private By tShirtsCategory =
+            By.cssSelector("a[href='/category_products/3']");
 
-    @FindBy(css = "a[href='/brand_products/Madame']")
-    private WebElement madameBrand;
+    private By brands =
+            By.cssSelector("div[class='brands-name']");
+
+    private By poloBrand =
+            By.cssSelector("a[href='/brand_products/Polo']");
+
+    private By madameBrand =
+            By.cssSelector("a[href='/brand_products/Madame']");
 
     private final JavascriptExecutor js;
 
@@ -61,14 +63,19 @@ public class ProductsPage extends BasePage {
     }
 
 
-    private void jsClick(WebElement element) {
+
+    private void jsClick(By locator) {
+        WebElement element = driver.findElement(locator);
+
         SeleniumHelper.waitForElementToBeClickable(driver, element);
         js.executeScript("arguments[0].scrollIntoView({block: 'center'});", element);
         js.executeScript("arguments[0].click();", element);
     }
 
+
+
     public WebElement getTitleTextCenter() {
-        return titleTextCenter;
+        return driver.findElement(titleTextCenter);
     }
 
     public ProductDetailPage viewProductOfFirstProductButtonClick() {
@@ -77,13 +84,13 @@ public class ProductsPage extends BasePage {
     }
 
     public ProductsPage fillSearchProductInput(String searchProduct) {
-        searchProductInput.sendKeys(searchProduct);
+        driver.findElement(searchProductInput).sendKeys(searchProduct);
         jsClick(submitSearchInput);
         return this;
     }
 
     public List<String> getProductsSearchNames() {
-        return searchResultsNames
+        return driver.findElements(searchResultsNames)
                 .stream()
                 .map(WebElement::getText)
                 .collect(Collectors.toList());
@@ -92,35 +99,41 @@ public class ProductsPage extends BasePage {
     public CartPage addProductsToCart() {
 
         jsClick(addToCartButton1);
-        SeleniumHelper.waitForElementToBeClickable(driver, continueShoppingButton);
-        continueShoppingButton.click();
+
+        SeleniumHelper.waitForElementToBeClickable(
+                driver, driver.findElement(continueShoppingButton));
+        driver.findElement(continueShoppingButton).click();
+
         jsClick(addToCartButton2);
-        SeleniumHelper.waitForElementToBeClickable(driver, viewCartButton);
-        viewCartButton.click();
+
+        SeleniumHelper.waitForElementToBeClickable(
+                driver, driver.findElement(viewCartButton));
+        driver.findElement(viewCartButton).click();
+
         return new CartPage(driver);
     }
 
     public ProductsPage menCategoryClick() {
-        menCategory.click();
+        driver.findElement(menCategory).click();
         return this;
     }
 
     public ProductsPage tShirtsCategoryClick() {
-        tShirtsCategory.click();
+        driver.findElement(tShirtsCategory).click();
         return this;
     }
 
     public WebElement getBrands() {
-        return brands;
+        return driver.findElement(brands);
     }
 
     public ProductsPage poloBrandClick() {
-        poloBrand.click();
+        driver.findElement(poloBrand).click();
         return this;
     }
 
     public ProductsPage madameBrandClick() {
-        madameBrand.click();
+        driver.findElement(madameBrand).click();
         return this;
     }
 }

@@ -1,27 +1,29 @@
 package com.automationexercise.pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 public class AccountDeletedPage extends BasePage {
 
-    @FindBy(css = "h2[data-qa='account-deleted']")
-    private WebElement accountDeleted;
 
-    @FindBy(css = "a[data-qa='continue-button']")
-    private WebElement continueButton;
+
+    private By accountDeleted =
+            By.cssSelector("h2[data-qa='account-deleted']");
+
+    private By continueButton =
+            By.cssSelector("a[data-qa='continue-button']");
 
     public AccountDeletedPage(WebDriver driver) {
         super(driver);
     }
 
     public WebElement getAccountDeleted() {
-        return accountDeleted;
+        return driver.findElement(accountDeleted);
     }
 
     public HomePage continueButtonClick() {
-        continueButton.click();
+        driver.findElement(continueButton).click();
         return new HomePage(driver);
     }
 }

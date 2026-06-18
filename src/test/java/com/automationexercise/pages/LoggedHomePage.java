@@ -1,42 +1,43 @@
 package com.automationexercise.pages;
 
 import com.automationexercise.utils.SeleniumHelper;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 public class LoggedHomePage extends BasePage {
 
 
-    @FindBy(xpath = "//a[contains(.,'Logged in as')]/b")
-    private WebElement username;
 
+    private By username =
+            By.xpath("//a[contains(.,'Logged in as')]/b");
 
-    @FindBy(css = "a[href='/delete_account']")
-    private WebElement deleteAccountButton;
+    private By deleteAccountButton =
+            By.cssSelector("a[href='/delete_account']");
 
-
-    @FindBy(css = "a[href='/logout']")
-    private WebElement logoutButton;
+    private By logoutButton =
+            By.cssSelector("a[href='/logout']");
 
     public LoggedHomePage(WebDriver driver) {
         super(driver);
     }
 
+
+
     public WebElement getUsername() {
-        SeleniumHelper.waitForElementToBeVisible(driver, username);
-        return username;
+        SeleniumHelper.waitForElementToBeVisible(driver, driver.findElement(username));
+        return driver.findElement(username);
     }
 
     public AccountDeletedPage deleteAccountButtonClick() {
-        SeleniumHelper.waitForElementToBeClickable(driver, deleteAccountButton);
-        deleteAccountButton.click();
+        SeleniumHelper.waitForElementToBeClickable(driver, driver.findElement(deleteAccountButton));
+        driver.findElement(deleteAccountButton).click();
         return new AccountDeletedPage(driver);
     }
 
     public LoginSignupPage logoutButtonClick() {
-        SeleniumHelper.waitForElementToBeClickable(driver, logoutButton);
-        logoutButton.click();
+        SeleniumHelper.waitForElementToBeClickable(driver, driver.findElement(logoutButton));
+        driver.findElement(logoutButton).click();
         return new LoginSignupPage(driver);
     }
 }

@@ -3,134 +3,144 @@ package com.automationexercise.pages;
 import com.automationexercise.utils.JSONReader;
 import com.automationexercise.utils.SeleniumHelper;
 import org.json.simple.parser.ParseException;
+import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 import java.io.IOException;
 
 public class HomePage extends BasePage {
 
-    @FindBy(css = "div[class='item active'] img[alt='demo website for practice']")
-    private WebElement girlImgResponsive;
 
-    @FindBy(css = "a[href='/login']")
-    private WebElement signupLoginButton;
 
-    @FindBy(css = "a[href='/contact_us']")
-    private WebElement contactUsButton;
+    private By girlImgResponsive =
+            By.cssSelector("div[class='item active'] img[alt='demo website for practice']");
 
-    @FindBy(css = "a[href='/test_cases']")
-    private WebElement testCasesButton;
+    private By signupLoginButton =
+            By.cssSelector("a[href='/login']");
 
-    @FindBy(css = "a[href='/products']")
-    private WebElement productsButton;
+    private By contactUsButton =
+            By.cssSelector("a[href='/contact_us']");
 
-    @FindBy(css = "a[href='/view_cart']")
-    private WebElement cartButton;
+    private By testCasesButton =
+            By.cssSelector("a[href='/test_cases']");
 
-    @FindBy(css = "a[href='/product_details/1']")
-    private WebElement viewProduct1Button;
+    private By productsButton =
+            By.cssSelector("a[href='/products']");
 
-    @FindBy(id = "accordian")
-    private WebElement categories;
+    private By cartButton =
+            By.cssSelector("a[href='/view_cart']");
 
-    @FindBy(xpath = "//*[@id='accordian']/div[1]/div[1]/h4/a/span/i")
-    private WebElement womenCategory;
+    private By viewProduct1Button =
+            By.cssSelector("a[href='/product_details/1']");
 
-    @FindBy(css = "a[href='/category_products/1']")
-    private WebElement dressCategory;
+    private By categories =
+            By.id("accordian");
 
-    //footer
-    @FindBy(css = "div[class='single-widget'] h2")
-    private WebElement subscription;
+    private By womenCategory =
+            By.xpath("//*[@id='accordian']/div[1]/div[1]/h4/a/span/i");
 
-    @FindBy(id = "susbscribe_email")
-    private WebElement subscribeEmailInput;
+    private By dressCategory =
+            By.cssSelector("a[href='/category_products/1']");
 
-    @FindBy(id = "subscribe")
-    private WebElement subscribeButton;
+    // footer
+    private By subscription =
+            By.cssSelector("div[class='single-widget'] h2");
 
-    @FindBy(id = "success-subscribe")
-    private WebElement alertSuccessSubscribe;
+    private By subscribeEmailInput =
+            By.id("susbscribe_email");
+
+    private By subscribeButton =
+            By.id("subscribe");
+
+    private By alertSuccessSubscribe =
+            By.id("success-subscribe");
 
     public HomePage(WebDriver driver) {
         super(driver);
     }
 
+
+
     public WebElement homePageIsVisible() {
-        return girlImgResponsive;
+        return driver.findElement(girlImgResponsive);
     }
 
     public LoginSignupPage signupLoginClick() {
-        signupLoginButton.click();
+        driver.findElement(signupLoginButton).click();
         return new LoginSignupPage(driver);
     }
 
     public ContactUsPage contactUsButtonClick() {
-        contactUsButton.click();
+        driver.findElement(contactUsButton).click();
         return new ContactUsPage(driver);
     }
 
     public ProductsPage productsButtonClick() {
-        productsButton.click();
+        driver.findElement(productsButton).click();
         return new ProductsPage(driver);
     }
 
     public CartPage cartButtonClick() {
-        cartButton.click();
+        driver.findElement(cartButton).click();
         return new CartPage(driver);
     }
 
     public ProductDetailPage viewProduct1ButtonClick() {
-        SeleniumHelper.waitForElementToBeClickable(driver, viewProduct1Button);
-        viewProduct1Button.click();
+        SeleniumHelper.waitForElementToBeClickable(driver, driver.findElement(viewProduct1Button));
+        driver.findElement(viewProduct1Button).click();
         return new ProductDetailPage(driver);
     }
 
     public WebElement getCategories() {
-        return categories;
+        return driver.findElement(categories);
     }
 
     public HomePage womenCategoryClick() {
-        SeleniumHelper.waitForElementToBeClickable(driver, womenCategory);
-        womenCategory.click();
+        SeleniumHelper.waitForElementToBeClickable(driver, driver.findElement(womenCategory));
+        driver.findElement(womenCategory).click();
         return this;
     }
 
     public ProductsPage dressCategoryClick() {
-        SeleniumHelper.waitForElementToBeClickable(driver, dressCategory);
-        dressCategory.click();
+        SeleniumHelper.waitForElementToBeClickable(driver, driver.findElement(dressCategory));
+        driver.findElement(dressCategory).click();
         return new ProductsPage(driver);
     }
 
-    //footer
+
+
     public WebElement getSubscription() {
-        return subscription;
+        return driver.findElement(subscription);
     }
 
     public HomePage fillSubscribe() throws IOException, ParseException {
-        subscribeEmailInput.sendKeys(JSONReader.existingUser("email"));
-        SeleniumHelper.waitForElementToBeClickable(driver, subscribeButton);
-        subscribeButton.click();
+        driver.findElement(subscribeEmailInput)
+                .sendKeys(JSONReader.existingUser("email"));
+
+        SeleniumHelper.waitForElementToBeClickable(driver, driver.findElement(subscribeButton));
+        driver.findElement(subscribeButton).click();
+
         return this;
     }
 
     public WebElement getAlertSuccessSubscribe() {
-        return alertSuccessSubscribe;
+        return driver.findElement(alertSuccessSubscribe);
     }
 
     public HomePage fillSubscribeWithEmail(String email) {
-        subscribeEmailInput.sendKeys(email);
-        SeleniumHelper.waitForElementToBeClickable(driver, subscribeButton);
-        subscribeButton.click();
+        driver.findElement(subscribeEmailInput).sendKeys(email);
+
+        SeleniumHelper.waitForElementToBeClickable(driver, driver.findElement(subscribeButton));
+        driver.findElement(subscribeButton).click();
+
         return this;
     }
 
     public boolean isSubscriptionSuccessAlertDisplayed() {
         try {
-            return alertSuccessSubscribe.isDisplayed();
+            return driver.findElement(alertSuccessSubscribe).isDisplayed();
         } catch (NoSuchElementException e) {
             return false;
         }

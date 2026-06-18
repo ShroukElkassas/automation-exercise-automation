@@ -3,59 +3,63 @@ package com.automationexercise.pages;
 import com.automationexercise.utils.JSONReader;
 import com.automationexercise.utils.SeleniumHelper;
 import org.json.simple.parser.ParseException;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 import java.io.IOException;
 
 public class LoginSignupPage extends BasePage {
 
-    @FindBy(css = "div[class='login-form'] h2")
-    private WebElement loginToYourAccount;
 
-    @FindBy(css = "input[data-qa='login-email']")
-    private WebElement loginEmailInput;
 
-    @FindBy(css = "input[data-qa='login-password']")
-    private WebElement loginPasswordInput;
+    private By loginToYourAccount =
+            By.cssSelector("div[class='login-form'] h2");
 
-    @FindBy(css = "button[data-qa='login-button']")
-    private WebElement loginButton;
+    private By loginEmailInput =
+            By.cssSelector("input[data-qa='login-email']");
 
-    @FindBy(xpath = "/html/body/section/div/div/div[1]/div/form/p")
-    private WebElement errorLogin;
+    private By loginPasswordInput =
+            By.cssSelector("input[data-qa='login-password']");
 
-    @FindBy(css = "div[class='signup-form'] h2")
-    private WebElement newUserSignup;
+    private By loginButton =
+            By.cssSelector("button[data-qa='login-button']");
 
-    @FindBy(css = "input[data-qa='signup-name']")
-    private WebElement signupNameInput;
+    private By errorLogin =
+            By.xpath("/html/body/section/div/div/div[1]/div/form/p");
 
-    @FindBy(css = "input[data-qa='signup-email']")
-    private WebElement signupEmailInput;
+    private By newUserSignup =
+            By.cssSelector("div[class='signup-form'] h2");
 
-    @FindBy(css = "button[data-qa='signup-button']")
-    private WebElement signupButton;
+    private By signupNameInput =
+            By.cssSelector("input[data-qa='signup-name']");
 
-    @FindBy(xpath = "//section/div/div/div[3]/div/form/p")
-    private WebElement emailAddressAlreadyExist;
+    private By signupEmailInput =
+            By.cssSelector("input[data-qa='signup-email']");
 
-    @FindBy(xpath = "//a[contains(.,'Logged in as')]/b")
-    private WebElement loggedInConfirmation;
+    private By signupButton =
+            By.cssSelector("button[data-qa='signup-button']");
+
+    private By emailAddressAlreadyExist =
+            By.xpath("//section/div/div/div[3]/div/form/p");
+
+    private By loggedInConfirmation =
+            By.xpath("//a[contains(.,'Logged in as')]/b");
 
     public LoginSignupPage(WebDriver driver) {
         super(driver);
     }
 
+
+
     public WebElement getNewUserSignup() {
-        return newUserSignup;
+        return driver.findElement(newUserSignup);
     }
 
     private void fillSignup(String name, String email) {
-        signupNameInput.sendKeys(name);
-        signupEmailInput.sendKeys(email);
-        signupButton.click();
+        driver.findElement(signupNameInput).sendKeys(name);
+        driver.findElement(signupEmailInput).sendKeys(email);
+        driver.findElement(signupButton).click();
     }
 
     public EnterAccountInformationPage fillCorrectSignup(String name, String email) {
@@ -64,9 +68,9 @@ public class LoginSignupPage extends BasePage {
     }
 
     public LoginSignupPage fillSignupAndStay(String name, String email) {
-        signupNameInput.sendKeys(name);
-        signupEmailInput.sendKeys(email);
-        signupButton.click();
+        driver.findElement(signupNameInput).sendKeys(name);
+        driver.findElement(signupEmailInput).sendKeys(email);
+        driver.findElement(signupButton).click();
         return this;
     }
 
@@ -76,18 +80,18 @@ public class LoginSignupPage extends BasePage {
     }
 
     public WebElement getLoginToYourAccount() {
-        return loginToYourAccount;
+        return driver.findElement(loginToYourAccount);
     }
 
     private void fillLogin(String email, String password) {
-        loginEmailInput.sendKeys(email);
-        loginPasswordInput.sendKeys(password);
-        loginButton.click();
+        driver.findElement(loginEmailInput).sendKeys(email);
+        driver.findElement(loginPasswordInput).sendKeys(password);
+        driver.findElement(loginButton).click();
     }
 
     public LoggedHomePage fillCorrectLogin(String email, String password) {
         fillLogin(email, password);
-        SeleniumHelper.waitForElementToBeVisible(driver, loggedInConfirmation);
+        SeleniumHelper.waitForElementToBeVisible(driver, driver.findElement(loggedInConfirmation));
         return new LoggedHomePage(driver);
     }
 
@@ -97,10 +101,10 @@ public class LoginSignupPage extends BasePage {
     }
 
     public WebElement getErrorLogin() {
-        return errorLogin;
+        return driver.findElement(errorLogin);
     }
 
     public WebElement getEmailAddressAlreadyExist() {
-        return emailAddressAlreadyExist;
+        return driver.findElement(emailAddressAlreadyExist);
     }
 }
