@@ -23,14 +23,15 @@ public class TestCaseE1 extends TestBasic {
             5. Set quantity input to 0
             6. Click 'Add to cart'
             7. Click 'View Cart'
-            8. Document the quantity displayed in the cart for this boundary value""")
+            8. Verify that quantity = 0 is not accepted""")
     public void addToCartWithZeroQuantity() {
         TestCase1.verifyThatHomePageIsVisibleSuccessfully();
         verifyQuantityZeroBehavior();
     }
 
-    @Step("Verify quantity behavior when input quantity = 0")
+    @Step("Verify that quantity = 0 is not accepted")
     private void verifyQuantityZeroBehavior() {
+
         new HomePage(getDriver()).viewProduct1ButtonClick();
 
         List<String> quantity = new ProductDetailPage(getDriver())
@@ -39,7 +40,10 @@ public class TestCaseE1 extends TestBasic {
                 .viewCartButtonClick()
                 .getQuantity();
 
-        Assert.assertEquals(quantity.get(0), "0",
-                "Document that the app currently accepts quantity = 0 into the cart without validation");
+        Assert.assertNotEquals(
+                quantity.get(0),
+                "0",
+                "The application accepted quantity = 0 into the cart without validation."
+        );
     }
 }
