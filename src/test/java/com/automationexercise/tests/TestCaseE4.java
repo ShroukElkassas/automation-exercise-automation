@@ -23,14 +23,15 @@ public class TestCaseE4 extends TestBasic {
             5. Set quantity input to -1
             6. Click 'Add to cart'
             7. Click 'View Cart'
-            8. Document the quantity displayed in the cart for this boundary value""")
+            8. Verify that quantity = -1 is not accepted""")
     public void addToCartWithNegativeQuantity() {
         TestCase1.verifyThatHomePageIsVisibleSuccessfully();
         verifyQuantityNegativeBehavior();
     }
 
-    @Step("Verify quantity behavior when input quantity = -1")
+    @Step("Verify that quantity = -1 is not accepted")
     private void verifyQuantityNegativeBehavior() {
+
         new HomePage(getDriver()).viewProduct1ButtonClick();
 
         List<String> quantity = new ProductDetailPage(getDriver())
@@ -39,8 +40,10 @@ public class TestCaseE4 extends TestBasic {
                 .viewCartButtonClick()
                 .getQuantity();
 
-
-        Assert.assertEquals(quantity.get(0), "-1",
-                "Document that the app currently accepts a negative quantity (-1) into the cart without validation");
+        Assert.assertNotEquals(
+                quantity.get(0),
+                "-1",
+                "The application accepted a negative quantity (-1) into the cart without validation."
+        );
     }
 }
